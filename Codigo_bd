@@ -1,0 +1,432 @@
+USE [master]
+GO
+/****** Object:  Database [UrbanGo]    Script Date: 5/6/2025 8:17:42 PM ******/
+CREATE DATABASE [UrbanGo]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'UrbanGo', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\UrbanGo.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'UrbanGo_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\UrbanGo_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT, LEDGER = OFF
+GO
+ALTER DATABASE [UrbanGo] SET COMPATIBILITY_LEVEL = 160
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [UrbanGo].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [UrbanGo] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [UrbanGo] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [UrbanGo] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [UrbanGo] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [UrbanGo] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [UrbanGo] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [UrbanGo] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [UrbanGo] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [UrbanGo] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [UrbanGo] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [UrbanGo] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [UrbanGo] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [UrbanGo] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [UrbanGo] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [UrbanGo] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [UrbanGo] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [UrbanGo] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [UrbanGo] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [UrbanGo] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [UrbanGo] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [UrbanGo] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [UrbanGo] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [UrbanGo] SET RECOVERY FULL 
+GO
+ALTER DATABASE [UrbanGo] SET  MULTI_USER 
+GO
+ALTER DATABASE [UrbanGo] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [UrbanGo] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [UrbanGo] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [UrbanGo] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [UrbanGo] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [UrbanGo] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'UrbanGo', N'ON'
+GO
+ALTER DATABASE [UrbanGo] SET QUERY_STORE = ON
+GO
+ALTER DATABASE [UrbanGo] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 30), DATA_FLUSH_INTERVAL_SECONDS = 900, INTERVAL_LENGTH_MINUTES = 60, MAX_STORAGE_SIZE_MB = 1000, QUERY_CAPTURE_MODE = AUTO, SIZE_BASED_CLEANUP_MODE = AUTO, MAX_PLANS_PER_QUERY = 200, WAIT_STATS_CAPTURE_MODE = ON)
+GO
+USE [UrbanGo]
+GO
+/****** Object:  Table [dbo].[Cargo]    Script Date: 5/6/2025 8:17:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Cargo](
+	[ID_Cargo] [int] IDENTITY(1,1) NOT NULL,
+	[Descripcion] [varchar](20) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID_Cargo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Categoria]    Script Date: 5/6/2025 8:17:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Categoria](
+	[ID_Categoria] [int] IDENTITY(1,1) NOT NULL,
+	[Categoria] [varchar](20) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID_Categoria] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Clasificacion_Vehiculo]    Script Date: 5/6/2025 8:17:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Clasificacion_Vehiculo](
+	[ID_Class] [int] IDENTITY(1,1) NOT NULL,
+	[Clasificacion] [varchar](20) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID_Class] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Compras]    Script Date: 5/6/2025 8:17:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Compras](
+	[ID_Compras] [int] IDENTITY(1,1) NOT NULL,
+	[Cantidad] [int] NOT NULL,
+	[Precio] [decimal](10, 2) NOT NULL,
+	[ID_Factura] [int] NOT NULL,
+	[ID_Repuesto] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID_Compras] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Facturas]    Script Date: 5/6/2025 8:17:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Facturas](
+	[ID_Factura] [int] IDENTITY(1,1) NOT NULL,
+	[N_Factura] [int] NOT NULL,
+	[FechaCompra] [date] NOT NULL,
+	[SubTotal] [decimal](10, 2) NOT NULL,
+	[IVA] [decimal](10, 2) NOT NULL,
+	[Total] [decimal](10, 2) NOT NULL,
+	[ID_Vehiculo] [int] NOT NULL,
+	[ID_Proveedor] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID_Factura] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Genero]    Script Date: 5/6/2025 8:17:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Genero](
+	[ID_Genero] [int] IDENTITY(1,1) NOT NULL,
+	[Descripcion] [varchar](10) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID_Genero] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Proveedores]    Script Date: 5/6/2025 8:17:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Proveedores](
+	[ID_Proveedor] [int] IDENTITY(1,1) NOT NULL,
+	[Nombre] [varchar](100) NOT NULL,
+	[Dirección] [varchar](100) NOT NULL,
+	[contacto] [int] NOT NULL,
+	[ID_Categoria] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID_Proveedor] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Registro_de_Clientes]    Script Date: 5/6/2025 8:17:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Registro_de_Clientes](
+	[ID_Cliente] [int] IDENTITY(1,1) NOT NULL,
+	[Nombre] [varchar](20) NOT NULL,
+	[Apellido] [varchar](20) NOT NULL,
+	[DUI] [int] NOT NULL,
+	[Contacto] [int] NOT NULL,
+	[ID_Usuario] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID_Cliente] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Registro_Empleados]    Script Date: 5/6/2025 8:17:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Registro_Empleados](
+	[ID_Empleado] [int] IDENTITY(1,1) NOT NULL,
+	[Nombre] [varchar](25) NOT NULL,
+	[Apellido] [varchar](25) NOT NULL,
+	[DUI] [varchar](25) NOT NULL,
+	[Contacto] [int] NOT NULL,
+	[ID_Cargo] [int] NOT NULL,
+	[ID_Genero] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID_Empleado] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Repuestos]    Script Date: 5/6/2025 8:17:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Repuestos](
+	[ID_Repuesto] [int] IDENTITY(1,1) NOT NULL,
+	[Nombre] [varchar](50) NOT NULL,
+	[Precio_U] [decimal](10, 2) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID_Repuesto] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Reservas]    Script Date: 5/6/2025 8:17:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Reservas](
+	[ID_Reserva] [int] IDENTITY(1,1) NOT NULL,
+	[ID_Empleado] [int] NOT NULL,
+	[ID_Cliente] [int] NOT NULL,
+	[ID_Ruta] [int] NOT NULL,
+	[Fecha_Reserva] [datetime] NOT NULL,
+	[Fecha_Viaje] [date] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID_Reserva] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Rutas]    Script Date: 5/6/2025 8:17:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Rutas](
+	[ID_Rutas] [int] IDENTITY(1,1) NOT NULL,
+	[Ubicacion_I] [varchar](50) NOT NULL,
+	[Destino_Final] [varchar](50) NOT NULL,
+	[Detalle] [varchar](50) NOT NULL,
+	[ID_Vehiculo] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID_Rutas] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Usuarios]    Script Date: 5/6/2025 8:17:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Usuarios](
+	[ID_Usuario] [int] IDENTITY(1,1) NOT NULL,
+	[Email] [varchar](100) NOT NULL,
+	[Contraseña] [varchar](100) NOT NULL,
+	[Fecha_de_Registro] [datetime] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID_Usuario] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Vehiculo]    Script Date: 5/6/2025 8:17:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Vehiculo](
+	[ID_Vehiculo] [int] IDENTITY(1,1) NOT NULL,
+	[Capacidad] [int] NOT NULL,
+	[Color] [varchar](10) NOT NULL,
+	[Placa] [varchar](25) NOT NULL,
+	[ID_Class] [int] NOT NULL,
+	[ID_Repuesto] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID_Vehiculo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Registro_de_Clientes] ON 
+
+INSERT [dbo].[Registro_de_Clientes] ([ID_Cliente], [Nombre], [Apellido], [DUI], [Contacto], [ID_Usuario]) VALUES (3, N'Carlos', N'Alfaro', 1234567, 74448965, 1)
+INSERT [dbo].[Registro_de_Clientes] ([ID_Cliente], [Nombre], [Apellido], [DUI], [Contacto], [ID_Usuario]) VALUES (4, N'Franklin', N'Medina', 19876543, 592, 2)
+INSERT [dbo].[Registro_de_Clientes] ([ID_Cliente], [Nombre], [Apellido], [DUI], [Contacto], [ID_Usuario]) VALUES (5, N'Alejandra ', N'Diaz', 123456789, 83521771, 3)
+INSERT [dbo].[Registro_de_Clientes] ([ID_Cliente], [Nombre], [Apellido], [DUI], [Contacto], [ID_Usuario]) VALUES (6, N'Juan ', N'Francia', 987654321, 65658218, 4)
+INSERT [dbo].[Registro_de_Clientes] ([ID_Cliente], [Nombre], [Apellido], [DUI], [Contacto], [ID_Usuario]) VALUES (7, N'Paola ', N'Vies', 23456788, 39668210, 4)
+SET IDENTITY_INSERT [dbo].[Registro_de_Clientes] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Usuarios] ON 
+
+INSERT [dbo].[Usuarios] ([ID_Usuario], [Email], [Contraseña], [Fecha_de_Registro]) VALUES (1, N'CarlosAlfaro123@gmail.com', N'Dx4@Dp2#', CAST(N'1900-01-01T00:00:00.000' AS DateTime))
+INSERT [dbo].[Usuarios] ([ID_Usuario], [Email], [Contraseña], [Fecha_de_Registro]) VALUES (2, N'frankmedina999@gmail.com', N'Cz6!Zf6@', CAST(N'1900-06-18T00:00:00.000' AS DateTime))
+INSERT [dbo].[Usuarios] ([ID_Usuario], [Email], [Contraseña], [Fecha_de_Registro]) VALUES (3, N'alediaz564@gmail.com', N'Iq8!Qc3@', CAST(N'1900-03-26T00:00:00.000' AS DateTime))
+INSERT [dbo].[Usuarios] ([ID_Usuario], [Email], [Contraseña], [Fecha_de_Registro]) VALUES (4, N'franciajuan888@gmail.com', N'Ad3$Jq4$', CAST(N'1900-03-16T00:00:00.000' AS DateTime))
+SET IDENTITY_INSERT [dbo].[Usuarios] OFF
+GO
+/****** Object:  Index [UQ__Facturas__94B891422D56262D]    Script Date: 5/6/2025 8:17:42 PM ******/
+ALTER TABLE [dbo].[Facturas] ADD UNIQUE NONCLUSTERED 
+(
+	[N_Factura] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [UQ__Proveedo__75E3EFCFCBCE7E27]    Script Date: 5/6/2025 8:17:42 PM ******/
+ALTER TABLE [dbo].[Proveedores] ADD UNIQUE NONCLUSTERED 
+(
+	[Nombre] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [UQ__Registro__C03671B97C0E4445]    Script Date: 5/6/2025 8:17:42 PM ******/
+ALTER TABLE [dbo].[Registro_de_Clientes] ADD UNIQUE NONCLUSTERED 
+(
+	[DUI] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [UQ__Registro__CFEC40CDB57D2808]    Script Date: 5/6/2025 8:17:42 PM ******/
+ALTER TABLE [dbo].[Registro_de_Clientes] ADD UNIQUE NONCLUSTERED 
+(
+	[Contacto] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [UQ__Registro__C03671B957BA9A56]    Script Date: 5/6/2025 8:17:42 PM ******/
+ALTER TABLE [dbo].[Registro_Empleados] ADD UNIQUE NONCLUSTERED 
+(
+	[DUI] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [UQ__Usuarios__A9D10534C3ACD0A8]    Script Date: 5/6/2025 8:17:42 PM ******/
+ALTER TABLE [dbo].[Usuarios] ADD UNIQUE NONCLUSTERED 
+(
+	[Email] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Compras]  WITH CHECK ADD FOREIGN KEY([ID_Factura])
+REFERENCES [dbo].[Facturas] ([ID_Factura])
+GO
+ALTER TABLE [dbo].[Compras]  WITH CHECK ADD FOREIGN KEY([ID_Repuesto])
+REFERENCES [dbo].[Repuestos] ([ID_Repuesto])
+GO
+ALTER TABLE [dbo].[Facturas]  WITH CHECK ADD FOREIGN KEY([ID_Proveedor])
+REFERENCES [dbo].[Proveedores] ([ID_Proveedor])
+GO
+ALTER TABLE [dbo].[Facturas]  WITH CHECK ADD FOREIGN KEY([ID_Vehiculo])
+REFERENCES [dbo].[Vehiculo] ([ID_Vehiculo])
+GO
+ALTER TABLE [dbo].[Proveedores]  WITH CHECK ADD FOREIGN KEY([ID_Categoria])
+REFERENCES [dbo].[Categoria] ([ID_Categoria])
+GO
+ALTER TABLE [dbo].[Registro_de_Clientes]  WITH CHECK ADD FOREIGN KEY([ID_Usuario])
+REFERENCES [dbo].[Usuarios] ([ID_Usuario])
+GO
+ALTER TABLE [dbo].[Registro_Empleados]  WITH CHECK ADD FOREIGN KEY([ID_Cargo])
+REFERENCES [dbo].[Cargo] ([ID_Cargo])
+GO
+ALTER TABLE [dbo].[Registro_Empleados]  WITH CHECK ADD FOREIGN KEY([ID_Genero])
+REFERENCES [dbo].[Genero] ([ID_Genero])
+GO
+ALTER TABLE [dbo].[Reservas]  WITH CHECK ADD FOREIGN KEY([ID_Cliente])
+REFERENCES [dbo].[Registro_de_Clientes] ([ID_Cliente])
+GO
+ALTER TABLE [dbo].[Reservas]  WITH CHECK ADD FOREIGN KEY([ID_Empleado])
+REFERENCES [dbo].[Registro_Empleados] ([ID_Empleado])
+GO
+ALTER TABLE [dbo].[Reservas]  WITH CHECK ADD FOREIGN KEY([ID_Ruta])
+REFERENCES [dbo].[Rutas] ([ID_Rutas])
+GO
+ALTER TABLE [dbo].[Rutas]  WITH CHECK ADD FOREIGN KEY([ID_Vehiculo])
+REFERENCES [dbo].[Vehiculo] ([ID_Vehiculo])
+GO
+ALTER TABLE [dbo].[Vehiculo]  WITH CHECK ADD FOREIGN KEY([ID_Repuesto])
+REFERENCES [dbo].[Repuestos] ([ID_Repuesto])
+GO
+ALTER TABLE [dbo].[Vehiculo]  WITH CHECK ADD FOREIGN KEY([ID_Repuesto])
+REFERENCES [dbo].[Repuestos] ([ID_Repuesto])
+GO
+ALTER TABLE [dbo].[Vehiculo]  WITH CHECK ADD  CONSTRAINT [FK_ID_Class] FOREIGN KEY([ID_Class])
+REFERENCES [dbo].[Clasificacion_Vehiculo] ([ID_Class])
+GO
+ALTER TABLE [dbo].[Vehiculo] CHECK CONSTRAINT [FK_ID_Class]
+GO
+ALTER TABLE [dbo].[Vehiculo]  WITH CHECK ADD  CONSTRAINT [ID_Class] FOREIGN KEY([ID_Class])
+REFERENCES [dbo].[Clasificacion_Vehiculo] ([ID_Class])
+GO
+ALTER TABLE [dbo].[Vehiculo] CHECK CONSTRAINT [ID_Class]
+GO
+USE [master]
+GO
+ALTER DATABASE [UrbanGo] SET  READ_WRITE 
+GO
